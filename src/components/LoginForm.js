@@ -4,7 +4,7 @@ import { validateInput, validateEmail, validatePassword } from '../utils/validat
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({ email: '', password: '' });
+  const [errors, setErrors] = useState({ email: '', password: '', form: '' });
 
   useEffect(() => {
     if (email === '') {
@@ -27,6 +27,20 @@ function LoginForm() {
     }
   }, [password]);
 
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    if (errors.form) {
+      setErrors({ ...errors, form: '' });
+    }
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    if (errors.form) {
+      setErrors({ ...errors, form: '' });
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validateInput(email, password)) {
@@ -42,14 +56,14 @@ function LoginForm() {
       <input
         type="text"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={handleEmailChange}
         placeholder="Email"
       />
       {errors.email && <div className="error">{errors.email}</div>}
       <input
         type="password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={handlePasswordChange}
         placeholder="Password"
       />
       {errors.password && <div className="error">{errors.password}</div>}
