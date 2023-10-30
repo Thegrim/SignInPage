@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { validateInput, validateEmail, validatePassword } from '../utils/validateInput';
-``
+
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({ email: '', password: '' });
 
   useEffect(() => {
-    if (email !== '') {
+    if (email === '') {
+      setErrors({ ...errors, email: '' });
+    } else {
       setErrors({ ...errors, email: validateEmail(email) ? '' : 'Invalid email address' });
     }
   }, [email]);
 
   useEffect(() => {
-    if (password !== '') {
+    if (password === '') {
+      setErrors({ ...errors, password: '' });
+    } else {
       setErrors({
         ...errors,
         password: validatePassword(password)
